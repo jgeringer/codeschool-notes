@@ -1,0 +1,124 @@
+GIT Notes:
+http://gittest.paperplane.io/todo.txt
+
+//git reset <file>                  = Unstage a particular file
+//git reset --soft HEAD^            = Undo last commit, put files back onto staging
+//git commit --amend -m "Message"   = change/add to the previous commit
+//git reset --hard HEAD^            = Undo last commit and all changes
+//git checkout -- <file>            = Discard changes
+
+DIFF:
+git diff HEAD <file>
+git diff                = shows exactly what changes you have in progress since the last commit
+
+DIFF Earlier Commits:
+git diff HEAD^          = parent of latest commit
+git diff HEAD^^         = gradparent of latest commit
+git diff HEAD~5         = five commits ago
+git diff HEAD^ ..HEAD   = second most recent commit vs most recent commit
+
+
+//git remote add origin https://github.com/jgeringer/git-real.git
+//git push -u origin master         = origin: remote repository name, master: local branch to push
+
+Having Muliple Remotes:
+//github is our cannonical repo = origin
+
+To add a new remote:
+//git remote add <name> <address>
+    Try remoting to my live site
+
+To remove Remotes
+git remote rm <name>
+
+To push to Remotes:
+git push -u <name> <branch>         = -u means that it'll remember it so next time you can just do "git push", <branch> = usually is master
+
+
+Cloning:
+git clone https://github.com/codeschool/git-real.git
+git clone https://github.com/codeschool/git-real.git git-demo       = "git-demo" is using a different local folder name, instead of the repo name that is getting pulled down.
+git remote -v                                                       = lists the Remotes
+
+Branching:
+git branch cat          = creates a branch from the current master branch you are onto
+git checkout cat        = switch to the new branch
+git branch              = list all local branches
+git branch -r           = list all remote branches
+
+Merge:
+git merge cat           = do this from the master branch
+
+Delete Branch:
+git branch -d cat       = deletes the local branch
+git branch -D cat       = forces a delete on it, even though there may be changes on it that have not been checked in yet
+
+Non-Fast-Forward"
+git checkout -b admin   = makes a new branch and checks it out
+
+Fix Merge Errors:
+Inside Vi...
+Vi Commands:
+    :wq = save and quit
+    :q! = cancel and quit
+    k   = up
+    j   = down    
+    h   = left
+    l   = right
+    i   = insert mode
+    ESC = leave mode  
+
+Merge Conflict:
+Edit the file first then...
+git commit -a           = leave off commit message since the editor will give us a good one.
+
+Remote Branches:
+git checkout -b shopping_cart   = creates and checks out a shopping_cart branch
+git push origin shopping_cart   = pushes the shopping_cart branch to github. Links the local branch to the remote branch and starts tracking it.
+git remote show origin          = gives you the status of all of the branches
+git push origin :shopping_cart  = delete a remote branch
+git remote prune origin         = To cleanup deleted remote branches
+git push heroku-staging staging:master      = Deploys to heroku since it needs a master branch
+git pull                        = auto merges branches
+git fetch                       = updates local branch information (can be used to get new branch information, like branches i do not have locally). does not merging them.
+git rebase                      = moves all changes that are not in origin/master to a temporary area. runs all origin/master commits. runs all commits in the temporary area.
+git rebase <branch>             = merges one branch to another withouth conflicts or a merge commit
+git rebase --continue           = to be used after resolving a conflict.
+
+If there are Conflicts during rebase:
+git add <file>
+git rebase --continue
+
+Tagging: A reference to a commit (used mostly for release versioning)
+git tag                                 = lists all tags
+git checkout v0.0.2                     = checks out code at commit that has this tag
+git tag -a v0.0.3 -m "version 0.0.3"    = tags
+git push --tags                         = to push new tags
+
+Blame: See who did what to what file
+git blame <file> --date short
+
+Exclude Files:
+.git/info/exclude                   = put paths in here that you want to exclude
+.gitignore                          = logs/*.log    //this will never include any "logs>.log" files
+git rm README.txt                   = removes a file   
+
+History and Configuration:
+git config --global color.ui true   = turns on the color scheme in the log
+git config --global core.editor emacs           = use emacs for interactive commands
+git config --global merge.tool opendiff         = use opendiff for managing merge conflicts
+git config --list                               = lists all config options
+git config --global alias.ci commit = makes it so you can just type ci to commit
+
+git log --oneline -p                = displays a detailed log of exactly what was changed for all the commits
+git log --oneline --stat            = shows insertions and deletions for each commit
+git log --oneline --graph           = shows a graph representation of commits and merges
+git log --since=1.day.ago           = shows all commits from one day ago (month, minute, hour)
+git log --until=1.minute.ago        = shows up to one minute ago
+git log --since=2000-01-01 --until=2012-12-21   = date range between
+
+Misc Notes:
+To write a file...
+echo "text that shows inside of the file goes here" > filename.txt
+
+
